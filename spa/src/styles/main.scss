@@ -1,0 +1,99 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,800,300);
+
+* { box-sizing: border-box;margin: 0; padding: 0; }
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f3f3f3;
+}
+
+h1, h2 {
+  text-align: center;
+}
+h1, h2, h3 {
+  font-weight: 100;
+}
+
+a { text-decoration: none; color: royalblue; &:hover { color: purple} }
+
+.main-app {
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: white;
+  top: 0;
+  padding: 1em;
+  min-height: 80vh;
+}
+.comment-list ,
+.post-list ,
+.user-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.comment-list__item,
+.post-list__item,
+.user-list__item {
+  margin: 10px;
+  border-bottom: 1px solid #f3f3f3;
+  padding: 10px;
+}
+
+.list-id {
+  font-size: small;
+  color: #aaa;
+}
+.list-username {
+  color: #333;
+}
+.list-email {
+  font-size: small;
+  color: #aaa;
+  font-style: italic;
+}
+
+.back-btn {
+  border: 2px solid #333;
+  color: #333;
+  padding: 0.5em 1em;
+  padding-left: 2em;
+  display: inline-block;
+  position: relative;
+
+  &:before {
+    content: '<';
+    position: absolute;
+    left: 10px;
+    font-size: 1em;
+  }
+
+}
+
+
+.loader {
+  height: 10px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background-color: #ddd;
+  margin-top: 30vh;
+}
+.loader:before{
+  display: block;
+  position: absolute;
+  content: "";
+  left: -200px;
+  width: 200px;
+  height: 10px;
+  background-color: #2980b9;
+  animation: loading 2s linear infinite;
+}
+
+@keyframes loading {
+    from {left: -200px; width: 30%;}
+    50% {width: 30%;}
+    70% {width: 70%;}
+    80% { left: 50%;}
+    95% {left: 120%;}
+    to {left: 100%;}
+}
