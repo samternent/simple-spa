@@ -5,7 +5,7 @@ import {createStore} from 'tbg-flux-factory';
 import request from 'reqwest';
 
 
-const api_link = 'https://simple-spa-api.herokuapp.com/';
+const api_link = 'https://simple-spa-api.herokuapp.com';
 // const api_link = 'http://localhost:7001';
 
 const appStore = createStore({

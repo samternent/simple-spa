@@ -25813,7 +25813,7 @@
 
 	// https://github.com/thebeansgroup/tbg-flux-factory
 	// a factory wrapper I wrote around facebooks Flux implementation
-	var api_link = 'https://simple-spa-api.herokuapp.com/';
+	var api_link = 'https://simple-spa-api.herokuapp.com';
 	// const api_link = 'http://localhost:7001';
 
 	var appStore = (0, _tbgFluxFactory.createStore)({
