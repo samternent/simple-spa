@@ -4,7 +4,9 @@
   "description": "Simple SPA in React",
   "main": "app/app.js",
   "scripts": {
-    "start": "webpack-dev-server --hot --inline --progress --colors",
+    "start-dev": "webpack-dev-server --hot --inline --progress --colors",
+    "start": "node index.js",
+    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "sam",
