@@ -25813,6 +25813,9 @@
 
 	// https://github.com/thebeansgroup/tbg-flux-factory
 	// a factory wrapper I wrote around facebooks Flux implementation
+	var api_link = 'https://simple-spa-api.herokuapp.com/';
+	// const api_link = 'http://localhost:7001';
+
 	var appStore = (0, _tbgFluxFactory.createStore)({
 	  name: 'app',
 	  data: {
@@ -25829,7 +25832,7 @@
 	        var _this = this;
 
 	        this.setState({ loading: true });
-	        (0, _reqwest2.default)('http://localhost:7001/users', function (users) {
+	        (0, _reqwest2.default)(api_link + '/users', function (users) {
 	          return _this.setState({ users: users, loading: false });
 	        });
 	      },
@@ -25838,7 +25841,7 @@
 
 	        this.setState({ loading: true });
 	        (0, _reqwest2.default)({
-	          url: 'http://localhost:7001/posts',
+	          url: api_link + '/posts',
 	          data: { userId: userId }
 	        }, function (posts) {
 	          return _this2.setState({ posts: posts, currentUser: _this2.data.users[userId], loading: false });
@@ -25849,7 +25852,7 @@
 
 	        this.setState({ loading: true });
 	        (0, _reqwest2.default)({
-	          url: 'http://localhost:7001/comments',
+	          url: api_link + '/comments',
 	          data: { postId: postId }
 	        }, function (comments) {
 	          return _this3.setState({ comments: comments, currentPost: _this3.data.posts[postId], loading: false });
