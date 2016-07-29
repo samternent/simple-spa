@@ -4,6 +4,10 @@ import {createStore} from 'tbg-flux-factory';
 
 import request from 'reqwest';
 
+
+const api_link = 'https://simple-spa-api.herokuapp.com/';
+// const api_link = 'http://localhost:7001';
+
 const appStore = createStore({
   name: 'app',
   data: {
@@ -18,19 +22,19 @@ const appStore = createStore({
     server: {
       getUsers() {
         this.setState({ loading: true })
-        request('http://localhost:7001/users', users => this.setState({ users, loading: false }));
+        request(`${api_link}/users`, users => this.setState({ users, loading: false }));
       },
       getPosts(userId) {
         this.setState({ loading: true })
         request({
-          url: 'http://localhost:7001/posts',
+          url: `${api_link}/posts`,
           data: {userId}
         }, posts => this.setState({ posts, currentUser: this.data.users[userId], loading: false}))
       },
       getComments(postId) {
         this.setState({ loading: true })
         request({
-          url: 'http://localhost:7001/comments',
+          url: `${api_link}/comments`,
           data: {postId}
         }, comments => this.setState({ comments, currentPost: this.data.posts[postId], loading: false}))
       }
