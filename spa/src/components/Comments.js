@@ -6,34 +6,16 @@ import {getStore, addChangeListener} from 'tbg-flux-factory';
 const appStore = getStore('app');
 
 class Posts extends Component {
-  constructor(props) {
-    super(props);
-    this.state = Object.assign({}, appStore.getState(), {
-
-    });
-    this.handleStoreUpdate = this.handleStoreUpdate.bind(this);
-  }
   componentWillMount() {
-    appStore.addChangeListener(this.handleStoreUpdate);
     appStore.Actions.getComments(this.props.routeParams.postId);
   }
 
-  componentWillUnmount() {
-    appStore.removeChangeListener(this.handleStoreUpdate);
-  }
-
-  handleStoreUpdate() {
-    this.setState(appStore.getState());
-  }
-
-
   renderUsers() {
-    const commentsArray = Object.keys(this.state.comments);
-    if (commentsArray.length === 0) return <div className=''>Sorry, no comments for this post</div>
+    const commentsArray = Object.keys(this.props.comments);
+    if (commentsArray.length === 0) return <div>Sorry, no comments for this post</div>
 
     const userDOM = commentsArray.map(key => {
-      const comment = this.state.comments[key];
-      console.log(comment)
+      const comment = this.props.comments[key];
       return(
         <li className='comment-list__item' key={`key_${comment.id}`}>
           <div className='list-id'>{comment.id}</div>
@@ -46,7 +28,7 @@ class Posts extends Component {
   }
 
   getBackLink() {
-    const props = (!this.state.currentPost)
+    const props = (!this.props.currentPost)
     ?
     {
       to: '/users',
@@ -54,7 +36,7 @@ class Posts extends Component {
     }
     :
     {
-      to: `/posts/${this.state.currentPost.userId}`,
+      to: `/posts/${this.props.currentPost.userId}`,
       text: 'Posts'
     };
 
@@ -67,7 +49,7 @@ class Posts extends Component {
     return (
       <div className='main-app'>
         {this.getBackLink()}
-        {(this.state.loading) ? <div className='loader' /> : (
+        {(this.props.loading) ? <div className='loader' /> : (
           <div>
             <h2>Comments</h2>
             <ul>{this.renderUsers()}</ul>
@@ -76,13 +58,6 @@ class Posts extends Component {
       </div>
     );
   }
-}
-
-Posts.propTypes = {
-  posts: PropTypes.array
-}
-Posts.defaultProps = {
-  posts: []
 }
 
 export default Posts;

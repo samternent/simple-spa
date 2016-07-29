@@ -14,7 +14,30 @@ h1, h2, h3 {
   font-weight: 100;
 }
 
-a { text-decoration: none; color: royalblue; &:hover { color: purple} }
+a {
+  text-decoration: none;
+  color: royalblue;
+  font-weight: 100;
+  &:hover {
+    color: #333;
+  }
+}
+
+.header {
+  background-color: #333;
+  color: white;
+  padding: 1em;
+}
+.footer {
+  font-size: small;
+  font-weight: 100;
+  color: #666;
+  padding: 0.5em;
+  text-align: center;
+}
+.heart {
+  color: pink;
+}
 
 .main-app {
   max-width: 900px;
@@ -53,12 +76,18 @@ a { text-decoration: none; color: royalblue; &:hover { color: purple} }
 }
 
 .back-btn {
-  border: 2px solid #333;
+  position: absolute;
+  border: 4px solid #eee;
   color: #333;
   padding: 0.5em 1em;
   padding-left: 2em;
   display: inline-block;
   position: relative;
+  transition: border 0.2s;
+
+  &:hover {
+    border: 4px solid #ccc;
+  }
 
   &:before {
     content: '<';
@@ -70,30 +99,52 @@ a { text-decoration: none; color: royalblue; &:hover { color: purple} }
 }
 
 
-.loader {
-  height: 10px;
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-  background-color: #ddd;
-  margin-top: 30vh;
-}
-.loader:before{
-  display: block;
-  position: absolute;
-  content: "";
-  left: -200px;
-  width: 200px;
-  height: 10px;
-  background-color: #2980b9;
-  animation: loading 2s linear infinite;
+
+@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+.main-app {
+  opacity:0;
+  animation:fadeIn ease-in 1;
+  animation-fill-mode:forwards;
+  animation-duration:0.1s;
 }
 
-@keyframes loading {
-    from {left: -200px; width: 30%;}
-    50% {width: 30%;}
-    70% {width: 70%;}
-    80% { left: 50%;}
-    95% {left: 120%;}
-    to {left: 100%;}
+
+.loader {
+  animation: spin 1.5s linear infinite;
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 100px auto 0;
+
+
+  border: 4px solid cornflowerblue;
+  border-radius: 50%;
+
+
+  &:after {
+    content:"";
+    width: 85%;
+    height: 85%;
+    background: -webkit-linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 40%, rgba(255,255,255,0.7) 60%, rgba(255,255,255,0) 100%);
+    position: absolute;
+    top:0;
+    left: 0;
+    transform: translate(-5%,-5%);
+  }
+
+  &.moon {
+    &:after {
+      display: none;
+    }
+    border-left: 0;
+    border-top: 0;
+
+  }
+}
+
+
+
+@keyframes spin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

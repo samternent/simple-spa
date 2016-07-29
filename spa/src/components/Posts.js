@@ -6,30 +6,17 @@ import {getStore, addChangeListener} from 'tbg-flux-factory';
 const appStore = getStore('app');
 
 class Posts extends Component {
-  constructor(props) {
-    super(props);
-    this.state = Object.assign({}, appStore.getState(), {});
-    this.handleStoreUpdate = this.handleStoreUpdate.bind(this);
-  }
   componentWillMount() {
-    appStore.addChangeListener(this.handleStoreUpdate);
     appStore.Actions.getPosts(this.props.routeParams.userId);
-    if (!this.state.users) appStore.Actions.getUsers();
-  }
-
-  componentWillUnmount() {
-    appStore.removeChangeListener(this.handleStoreUpdate);
-  }
-
-  handleStoreUpdate() {
-    this.setState(appStore.getState());
+    if (!this.props.users) appStore.Actions.getUsers();
   }
 
   renderUsers() {
-    const postArray = Object.keys(this.state.posts);
+    const postArray = Object.keys(this.props.posts);
     if (postArray.length === 0) return <div className=''>Soory, no posts for this user</div>
+    
     return postArray.map(key => {
-      const post = this.state.posts[key];
+      const post = this.props.posts[key];
       return(
         <li className='post-list__item' key={`key_${post.id}`}>
           <Link to={`/comments/${post.id}`}>
@@ -45,9 +32,12 @@ class Posts extends Component {
   render() {
     return (
       <div className='main-app'>
-        <Link className='back-btn' to='/users'>Users</Link> <h2>Posts</h2>
-        {(this.state.loading) ? <div className='loader' /> : (
-          <ul className='post-list'>{this.renderUsers()}</ul>
+        <Link className='back-btn' to='/users'>Users</Link>
+        {(this.props.loading) ? <div className='loader' /> : (
+          <div>
+            <h2>Posts</h2>
+            <ul className='post-list'>{this.renderUsers()}</ul>
+          </div>
         )}
       </div>
     );

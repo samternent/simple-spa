@@ -7,28 +7,14 @@ import {getStore, addChangeListener} from 'tbg-flux-factory';
 const appStore = getStore('app');
 
 export default class Users extends Component {
-  constructor(props) {
-    super(props);
-    this.state = Object.assign({}, appStore.getState(), {});
-    this.handleStoreUpdate = this.handleStoreUpdate.bind(this);
-  }
   componentWillMount() {
-    appStore.addChangeListener(this.handleStoreUpdate);
     appStore.Actions.getUsers();
-  }
-
-  componentWillUnmount() {
-    appStore.removeChangeListener(this.handleStoreUpdate);
-  }
-
-  handleStoreUpdate() {
-    this.setState(appStore.getState());
   }
 
   renderUsers() {
     // Item template
-    const userDOM = Object.keys(this.state.users).map(key => {
-      const user = this.state.users[key];
+    return Object.keys(this.props.users).map(key => {
+      const user = this.props.users[key];
       return(
         <li className='user-list__item' key={`key_${user.id}`}>
           <Link to={`/posts/${user.id}`}>
@@ -39,19 +25,15 @@ export default class Users extends Component {
         </li>
       );
     });
-
-    // Return list of items
-    return <ul className='user-list'>{userDOM}</ul>
   }
 
   render() {
-    if (this.state.loading) return null;
     return (
       <div className='main-app'>
-      {(this.state.loading) ? <div className='loader' /> : (
+      {(this.props.loading) ? <div className='loader' /> : (
         <div>
           <h2>Users</h2>
-          <ul>{this.renderUsers()}</ul>
+          <ul className='user-list'>{this.renderUsers()}</ul>
         </div>
       )}
       </div>

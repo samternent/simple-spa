@@ -1,3 +1,5 @@
+// https://github.com/thebeansgroup/tbg-flux-factory
+// a factory wrapper I wrote around facebooks Flux implementation
 import {createStore} from 'tbg-flux-factory';
 
 import request from 'reqwest';
@@ -13,7 +15,6 @@ const appStore = createStore({
     loading: false,
   },
   actions: {
-    view: {},
     server: {
       getUsers() {
         this.setState({ loading: true })
